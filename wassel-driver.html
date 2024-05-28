@@ -29,7 +29,7 @@
     <div class="container">
         <h1>Privacy Policy</h1>
         <p><strong>Last Updated:</strong> 27 May 2024</p>
-        <p>Welcome to <span id="appName" />! Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application (the "App") for delivery and logistics services. Please read this policy carefully to understand our views and practices regarding your personal data and how we will treat it.</p>
+        <p>Welcome to <label id="appName" />! Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application (the "App") for delivery and logistics services. Please read this policy carefully to understand our views and practices regarding your personal data and how we will treat it.</p>
 
         <h2>1. Information We Collect</h2>
 
@@ -113,8 +113,8 @@
         <h2>12. Contact Us</h2>
         <p>If you have any questions about this Privacy Policy or our data practices, please contact us at:</p>
         <p>
-            <span id="contactName" /><br>
-            <span id="contactAddress" /><br>
+            <b><label id="contactName" /></b><br>
+            <label id="contactAddress" /><br>
             Email: <a id="email"></a>
             Phone: <a id="phone"></a>
         </p>
@@ -151,9 +151,9 @@
         const info = JSON.parse(decodedStr);
 
         // Display the decoded text in the HTML element
-        document.getElementById("appName").innerText = info.appName;
-        document.getElementById("contactName").innerText = info.contactName;
-        document.getElementById("contactAddress").innerText = info.contactAddress;
+        document.getElementById("appName").innerText = encodeURI(info.appName);
+        document.getElementById("contactName").innerText = encodeURI(info.contactName);
+        document.getElementById("contactAddress").innerText = encodeURI(info.contactAddress);
         document.getElementById("email").innerText = info.email;
         document.getElementById("email").href = "mailto:" + info.email;
         document.getElementById("phone").innerText = info.phone;
