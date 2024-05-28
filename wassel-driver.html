@@ -29,7 +29,7 @@
     <div class="container">
         <h1>Privacy Policy</h1>
         <p><strong>Last Updated:</strong> 27 May 2024</p>
-        <p>Welcome to صد رد سائق! Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application (the "App") for delivery and logistics services. Please read this policy carefully to understand our views and practices regarding your personal data and how we will treat it.</p>
+        <p>Welcome to <span id="appName" />! Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application (the "App") for delivery and logistics services. Please read this policy carefully to understand our views and practices regarding your personal data and how we will treat it.</p>
 
         <h2>1. Information We Collect</h2>
 
@@ -113,13 +113,53 @@
         <h2>12. Contact Us</h2>
         <p>If you have any questions about this Privacy Policy or our data practices, please contact us at:</p>
         <p>
-            Sad Rad Delivery<br>
-            Irbid, Jordan<br>
-            Email: <a href="mailto:sadrad1110@gmail.com">sadrad1110@gmail.com</a><br>
-            Phone: <a href="tel:+962786631112">+962 78 663 1112</a> | <a href="tel:+962786631110">+962 78 663 1110</a>
+            <span id="contactName" /><br>
+            <span id="contactAddress" /><br>
+            Email: <a id="email"></a>
+            Phone: <a id="phone"></a>
         </p>
 
         <p><strong>By using the App, you agree to the terms of this Privacy Policy.</strong></p>
     </div>
 </body>
 </html>
+
+<script>
+    // Function to decode Base64
+    function decodeBase64(encodedStr) {
+        // Decode the Base64 string
+        let binaryStr = atob(encodedStr);
+        // Convert binary string to a text string using TextDecoder
+        let decoder = new TextDecoder('utf-8');
+        let byteArray = new Uint8Array(binaryStr.length);
+        for (let i = 0; i < binaryStr.length; i++) {
+            byteArray[i] = binaryStr.charCodeAt(i);
+        }
+        return decoder.decode(byteArray);
+    }
+
+    // Function to handle decoding and displaying the text
+    function displayDecodedText() {
+        const params = new URLSearchParams(document.location.search);
+
+        // Base64 encoded string
+        const encodedStr = params.get("i");
+
+        // Decode the Base64 string
+        const decodedStr = decodeBase64(encodedStr);
+
+        const info = JSON.parse(decodedStr);
+
+        // Display the decoded text in the HTML element
+        document.getElementById("appName").innerText = info.appName;
+        document.getElementById("contactName").innerText = info.contactName;
+        document.getElementById("contactAddress").innerText = info.contactAddress;
+        document.getElementById("email").innerText = info.email;
+        document.getElementById("email").href = "mailto:" + info.email;
+        document.getElementById("phone").innerText = info.phone;
+        document.getElementById("phone").href = "tel:" + info.phone;
+    }
+
+    // Run the function after the page loads
+    window.onload = displayDecodedText;
+</script>
